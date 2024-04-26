@@ -1,0 +1,31 @@
+import socket
+import requests
+import builtwith
+
+def gather_website_info(url):
+    # DNS lookup
+    ip_address = socket.gethostbyname(url)
+    print('IP Address:', ip_address)
+    print('-' * 30)
+    
+    # Web server
+    response = requests.get('http://' + url)
+    web_server = response.headers.get('Server')
+    if web_server:
+        print('Web Server:', web_server)
+        print('-' * 30)
+    
+    # CMS detection
+    technologies = builtwith.builtwith(url)
+    if technologies:
+        print('CMS Detected:')
+        for key, value in technologies.items():
+            print(key)
+        print('-' * 30)
+
+# Get the website URL from user input
+website_url = input('Enter the website URL: ')
+
+# Call the function to gather website information
+if _name_ == "_main_":
+    gather_website_info(website_url)
